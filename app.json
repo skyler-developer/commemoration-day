@@ -4,7 +4,7 @@
         "slug": "commemoration-day",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/images/appIconAdaptive.png",
+        "icon": "./assets/images/appIcon1.png",
         "scheme": "commemoration-day",
         "userInterfaceStyle": "automatic",
         "newArchEnabled": true,
@@ -13,7 +13,7 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/images/appIconAdaptive.png",
+                "foregroundImage": "./assets/images/appIcon1.png",
                 "backgroundColor": "#ffffff"
             },
             "package": "com.skylerhaut.commemorationday"
@@ -28,7 +28,7 @@
             [
                 "expo-splash-screen",
                 {
-                    "image": "./assets/images/appIconAdaptive.png",
+                    "image": "./assets/images/appIcon1.png",
                     "imageWidth": 150,
                     "resizeMode": "contain",
                     "backgroundColor": "#ffffff"
