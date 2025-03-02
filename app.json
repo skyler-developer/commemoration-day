@@ -4,7 +4,7 @@
         "slug": "commemoration-day",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/images/appIcon.png",
+        "icon": "./assets/images/appIconAdaptive.png",
         "scheme": "commemoration-day",
         "userInterfaceStyle": "automatic",
         "newArchEnabled": true,
