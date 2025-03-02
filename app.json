@@ -13,9 +13,10 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/images/adaptive-icon.png",
+                "foregroundImage": "./assets/images/appIcon.png",
                 "backgroundColor": "#ffffff"
-            }
+            },
+            "package": "com.skylerhaut.commemorationday"
         },
         "web": {
             "bundler": "metro",
@@ -27,7 +28,7 @@
             [
                 "expo-splash-screen",
                 {
-                    "image": "./assets/images/splash-icon.png",
+                    "image": "./assets/images/appIcon.png",
                     "imageWidth": 200,
                     "resizeMode": "contain",
                     "backgroundColor": "#ffffff"
@@ -36,6 +37,14 @@
         ],
         "experiments": {
             "typedRoutes": true
+        },
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "5b594916-d7b9-4c1a-b199-1d6a8849c2db"
+            }
         }
     }
 }
