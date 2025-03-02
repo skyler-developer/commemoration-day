@@ -13,7 +13,7 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/images/appIcon.png",
+                "foregroundImage": "./assets/images/appIconAdaptive.png",
                 "backgroundColor": "#ffffff"
             },
             "package": "com.skylerhaut.commemorationday"
