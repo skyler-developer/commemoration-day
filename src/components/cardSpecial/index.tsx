@@ -36,7 +36,7 @@ const Card: React.FC = () => {
     return (
         <View style={styles.card}>
             <ImageBackground
-                source={require("@/assets/images/with.jpg")}
+                source={require("@/src/assets/images/with.jpg")}
                 resizeMode="cover"
                 style={{
                     width: "100%",
@@ -46,7 +46,7 @@ const Card: React.FC = () => {
                     <Text style={styles.title}>与宝宝的恋爱纪念</Text>
                 </View>
                 <View style={styles.firstContainer}>
-                    <Image source={require("@/assets/images/心情.png")} style={styles.image} />
+                    <Image source={require("@/src/assets/images/心情.png")} style={styles.image} />
                     <Text style={styles.secondaryTitle}>距今已经</Text>
                 </View>
                 <View style={styles.innerContainer}>
