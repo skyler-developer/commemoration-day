@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, ImageBackground, Dimensions, Image } from "react-native";
 import { useMemo, useEffect, useState } from "react";
 import { differenceInDays, differenceInSeconds, parseISO, format, parse } from "date-fns";
-import { router } from 'expo-router';
+import { router } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
