@@ -47,7 +47,7 @@ export default function RootLayout() {
                     resizeMode="cover"
                     // 顶部header部分加上状态栏高度，需要隔开header，
                     style={[styles.background]}>
-                    <Slot />
+                    <Slot initialRouteName="Home" />
                 </ImageBackground>
             </SafeAreaView>
         </SafeAreaProvider>

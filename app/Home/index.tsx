@@ -18,9 +18,7 @@ export default function HomeScreen() {
                 <Button
                     title="to   Details"
                     onPress={() => {
-                        router.push({
-                            pathname: "/Details",
-                        });
+                        router.navigate("/Details");
                     }}
                 />
             </ScrollView>
