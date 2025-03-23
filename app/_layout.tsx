@@ -9,7 +9,6 @@ import { StatusBar, SafeAreaView, StyleSheet, ImageBackground, useColorScheme } 
 import DeviceInfo from "@/src/utils/deviceInfo";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useColorSchemeStore from "@/src/stores/colorSchemeStore";
-import Header from "@/src/components/header";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -47,8 +46,7 @@ export default function RootLayout() {
                     source={require("@/src/assets/images/background.jpg")}
                     resizeMode="cover"
                     // 顶部header部分加上状态栏高度，需要隔开header，
-                    style={[styles.background, { paddingTop: 100 + insets.top }]}>
-                    <Header />
+                    style={[styles.background]}>
                     <Slot />
                 </ImageBackground>
             </SafeAreaView>
@@ -68,6 +66,6 @@ const styles = StyleSheet.create({
         // 这里是暂时的，为了让卡片居上一点
         paddingBottom: 0,
         justifyContent: "flex-start",
-        alignItems: "center",
+        // alignItems: "center",
     },
 });

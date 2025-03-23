@@ -5,7 +5,8 @@ import { differenceInDays, differenceInSeconds, parseISO, format, parse } from "
 import { router } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
-
+console.log("width", width);
+console.log("height", height);
 const ViewHeight = height * 0.25;
 const ViewWidth = ViewHeight * 1.6;
 const Card: React.FC = () => {
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
         height: ViewHeight,
         overflow: "hidden",
         marginBottom: 30,
+        marginHorizontal: "auto",
     },
     imageBackground: {
         width: "100%",

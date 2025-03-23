@@ -1,9 +1,11 @@
 import { ScrollView, Button } from "react-native";
+import Header from "@/src/components/header";
 import Card from "@/src/components/card";
 import { Link, router } from "expo-router";
 export default function HomeScreen() {
     return (
         <>
+            <Header />
             <ScrollView
                 style={{ backgroundColor: "transparent" }}
                 showsVerticalScrollIndicator={false}
@@ -16,7 +18,9 @@ export default function HomeScreen() {
                 <Button
                     title="to   Details"
                     onPress={() => {
-                        router.push("/Details");
+                        router.push({
+                            pathname: "/Details",
+                        });
                     }}
                 />
             </ScrollView>
