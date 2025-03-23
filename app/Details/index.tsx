@@ -13,7 +13,7 @@ export default function Details() {
                     height: height / 2.1,
                     backgroundColor: "green",
                 }}></ImageBackground>
-            {/* <Text>详情页面内容</Text> */}
+            <Text>详情页面内容</Text>
         </View>
     );
 }
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
         flex: 1,
         // justifyContent: "center",
         // alignItems: "center",
-        // backgroundColor: "red",
+        backgroundColor: "transparent",
     },
 });

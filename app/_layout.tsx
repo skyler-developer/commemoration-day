@@ -2,9 +2,11 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
-import { Slot } from "expo-router";
+import { Slot, useSegments, useRouter } from "expo-router";
+import Animated from "react-native-reanimated";
+import { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
 import { StatusBar, SafeAreaView, StyleSheet, ImageBackground, useColorScheme } from "react-native";
 import DeviceInfo from "@/src/utils/deviceInfo";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -12,6 +14,27 @@ import useColorSchemeStore from "@/src/stores/colorSchemeStore";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
+    const router = useRouter();
+    const segments = useSegments(); // 获取当前路由的路径片段
+    const opacity = useSharedValue(0); // 用于控制透明度的动画值
+    const translateX = useSharedValue(50); // 用于控制水平移动的动画值
+    console.log(segments);
+    // 动态样式
+    const animatedStyle = useAnimatedStyle(() => ({
+        opacity: opacity.value,
+        transform: [{ translateX: translateX.value }],
+    }));
+
+    useEffect(() => {
+        console.log("路由变化");
+        // 当路由变化时，触发动画
+        opacity.value = 0; // 初始透明度为 0
+        translateX.value = 50; // 初始位置向右偏移
+
+        // 使用 withTiming 设置动画过渡效果
+        opacity.value = withTiming(1, { duration: 300 });
+        translateX.value = withTiming(0, { duration: 300 });
+    }, [segments]); // 每当路由片段变化时触发
     const setColorScheme = useColorSchemeStore((state) => state.setColorScheme);
     const systemColorScheme = useColorScheme();
     useEffect(() => {
@@ -47,7 +70,9 @@ export default function RootLayout() {
                     resizeMode="cover"
                     // 顶部header部分加上状态栏高度，需要隔开header，
                     style={[styles.background]}>
-                    <Slot initialRouteName="Home" />
+                    <Animated.View style={[animatedStyle]}>
+                        <Slot />
+                    </Animated.View>
                 </ImageBackground>
             </SafeAreaView>
         </SafeAreaProvider>
