@@ -1,12 +1,23 @@
-import { View, Text, StyleSheet, ImageBackground, Dimensions, ScrollView } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    ImageBackground,
+    Dimensions,
+    ScrollView,
+    Button,
+    TouchableOpacity,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { router } from "expo-router";
+
 const { width, height } = Dimensions.get("window");
 console.log("width", width);
 console.log("height", height);
 export default function Details() {
     const insets = useSafeAreaInsets();
     return (
-        <View style={[styles.container]}>
+        <View style={styles.container}>
             <ImageBackground
                 resizeMode="cover"
                 source={require("@/src/assets/images/with.jpg")}
@@ -14,14 +25,12 @@ export default function Details() {
                 <View style={styles.innerContainer}>
                     <View style={styles.subtitleContainer}>
                         <Text style={styles.subtitleText}>神奇的西藏</Text>
-                        <Text
-                            style={{
-                                color: "#fff",
-                                fontSize: 18,
-                                fontWeight: 700,
+                        <TouchableOpacity
+                            onPress={() => {
+                                router.push("../Edit");
                             }}>
-                            编辑
-                        </Text>
+                            <Text style={styles.subtitleText}>编辑</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.mainTitleContainer}>
                         <Text style={styles.mainTitleText}>第一次去旅游</Text>
