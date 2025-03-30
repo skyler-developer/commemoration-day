@@ -21,6 +21,7 @@ export default function RootLayout() {
     console.log(segments);
     // 动态样式
     const animatedStyle = useAnimatedStyle(() => ({
+        flex: 1,
         opacity: opacity.value,
         transform: [{ translateX: translateX.value }],
     }));
@@ -87,7 +88,6 @@ const styles = StyleSheet.create({
     },
     background: {
         flex: 1,
-
         // 这里是暂时的，为了让卡片居上一点
         paddingBottom: 0,
         justifyContent: "flex-start",
