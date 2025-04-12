@@ -24,3 +24,8 @@ npm start
 4. 使用React Native Reanimated库实现动画效果。
 <!-- 5. 使用react-native-calendars库提供日期选择器。 -->
 5. 使用 @ant-design/react-native 库提供日期选择器
+
+
+
+# 坑点记录
+1. rn中元素的position属性值默认为relative

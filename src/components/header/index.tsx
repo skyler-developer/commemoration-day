@@ -5,8 +5,7 @@ const Header: React.FC = () => {
     const insets = useSafeAreaInsets();
     console.log(insets.top);
     return (
-        // 这里的top需要加上insets.top，以隔开状态栏高度
-        <View style={[styles.container, { top: insets.top }]}>
+        <View style={[styles.container]}>
             <Text style={styles.firstTitle}>forever</Text>
             <Text style={styles.tapText}>每一个平凡的日子，都值得纪念</Text>
         </View>
@@ -19,12 +18,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
-        position: "absolute",
         paddingLeft: 20,
         paddingRight: 20,
         height: 100,
-        left: 0,
-        // backgroundColor: "red",
     },
     firstTitle: {
         fontFamily: "Conspired",

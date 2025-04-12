@@ -69,15 +69,9 @@ export default function RootLayout() {
         <Provider>
             <SafeAreaProvider>
                 <SafeAreaView style={[styles.container, { paddingBottom: insets.bottom }]}>
-                    <ImageBackground
-                        source={require("@/src/assets/images/background.jpg")}
-                        resizeMode="cover"
-                        // 顶部header部分加上状态栏高度，需要隔开header，
-                        style={[styles.background]}>
-                        <Animated.View style={[animatedStyle]}>
-                            <Slot />
-                        </Animated.View>
-                    </ImageBackground>
+                    <Animated.View style={[animatedStyle]}>
+                        <Slot />
+                    </Animated.View>
                 </SafeAreaView>
             </SafeAreaProvider>
         </Provider>
@@ -88,13 +82,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         position: "relative",
-        backgroundColor: "#ffffff",
-    },
-    background: {
-        flex: 1,
-        // 这里是暂时的，为了让卡片居上一点
-        paddingBottom: 0,
-        justifyContent: "flex-start",
-        // alignItems: "center",
+        backgroundColor: "#f6f6f7",
     },
 });
