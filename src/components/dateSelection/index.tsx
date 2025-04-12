@@ -1,16 +1,7 @@
-import React, { useState } from "react";
-import {
-    View,
-    TouchableOpacity,
-    Text,
-    StyleSheet,
-    Modal,
-    TouchableWithoutFeedback,
-} from "react-native";
+import React from "react";
+import { View, StyleSheet, Modal, TouchableWithoutFeedback } from "react-native";
+import useCardInfoStore from "@/src/stores/cardInfoStore";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import { List } from "@ant-design/react-native";
-
-// const now = new Date();
 
 // 配置中文语言
 LocaleConfig.locales["zh"] = {
@@ -49,27 +40,22 @@ LocaleConfig.locales["zh"] = {
 LocaleConfig.defaultLocale = "zh";
 
 const DateSelection: React.FC<{ dateSelect: (date: Date) => void }> = ({ dateSelect }) => {
-    const [selectedDate, setSelectedDate] = useState<string>("");
-    const [showCalendar, setShowCalendar] = useState(false);
+    const { cardInfo, setDateSelectView, setDate } = useCardInfoStore();
 
-    const onDayPress = (day: any) => {
-        setSelectedDate(day.dateString);
+    const onDayPress = (day: { dateString: string }) => {
         dateSelect(new Date(day.dateString));
-        setShowCalendar(false);
+        setDate(new Date(day.dateString));
+        setDateSelectView(false);
     };
 
     const closeModal = () => {
-        setShowCalendar(false);
+        setDateSelectView(false);
     };
 
     return (
         <View>
-            <TouchableOpacity onPress={() => setShowCalendar(true)} style={styles.dateButton}>
-                <Text style={styles.dateText}>{selectedDate ? selectedDate : "选择日期"}</Text>
-            </TouchableOpacity>
-
             <Modal
-                visible={showCalendar}
+                visible={cardInfo.date.dateSelectView}
                 transparent={true}
                 animationType="fade"
                 onRequestClose={closeModal}>
@@ -80,7 +66,7 @@ const DateSelection: React.FC<{ dateSelect: (date: Date) => void }> = ({ dateSel
                                 <Calendar
                                     onDayPress={onDayPress}
                                     markedDates={{
-                                        [selectedDate]: {
+                                        [cardInfo.date.dateTime.toISOString().split("T")[0]]: {
                                             selected: true,
                                             selectedColor: "#1890ff",
                                         },
