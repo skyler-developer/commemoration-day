@@ -1,7 +1,9 @@
+import React from "react";
 import { ScrollView, Button } from "react-native";
 import Header from "@/src/components/header";
 import Card from "@/src/components/card";
 import { router } from "expo-router";
+
 export default function home() {
     return (
         <>

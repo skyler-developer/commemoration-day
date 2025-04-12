@@ -1,39 +1,32 @@
-import { View, Text, StyleSheet, ImageBackground, Dimensions, ScrollView } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    ImageBackground,
+    Dimensions,
+    ScrollView,
+    TextInput,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Calendar, LocaleConfig } from "react-native-calendars";
 import { useState } from "react";
 import { format } from "date-fns";
 import deviceInfo from "@/src/utils/deviceInfo";
-
-LocaleConfig.locales["cn"] = {
-    monthNames: [
-        "一月",
-        "二月",
-        "三月",
-        "四月",
-        "五月",
-        "六月",
-        "七月",
-        "八月",
-        "九月",
-        "十月",
-        "十一月",
-        "十二月",
-    ],
-    monthNamesShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"],
-    dayNames: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-    dayNamesShort: ["一", "二", "三", "四", "五", "六", "日"],
-    today: "今天",
-};
-LocaleConfig.defaultLocale = "cn";
+import DateSelection from "@/src/components/dateSelection";
 
 const { width, height } = Dimensions.get("window");
 console.log("width", width);
 console.log("height", height);
 export default function Edit() {
     const insets = useSafeAreaInsets();
-    const [selectedDate, setSelectedDate] = useState(new Date("2019-05-08"));
     const [showPicker, setShowPicker] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date("2019-05-08"));
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [record, setRecord] = useState("");
+
+    const dateSelect = (date: Date) => {
+        setSelectedDate(date);
+    };
 
     return (
         <View style={styles.container}>
@@ -67,76 +60,44 @@ export default function Edit() {
                         <Text style={styles.startDateText} onPress={() => setShowPicker(true)}>
                             {format(selectedDate, "yyyy-MM-dd")}
                         </Text>
-                        {showPicker && (
-                            <Calendar
-                                style={{ height: 500 }}
-                                // Initially visible month. Default = now
-                                initialDate={"2012-03-01"}
-                                // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-                                minDate={"2012-05-10"}
-                                // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-                                maxDate={"2012-05-30"}
-                                // Handler which gets executed on day press. Default = undefined
-                                onDayPress={(day) => {
-                                    console.log("selected day", day);
-                                }}
-                                // Handler which gets executed on day long press. Default = undefined
-                                onDayLongPress={(day) => {
-                                    console.log("selected day", day);
-                                }}
-                                // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-                                monthFormat={"yyyy MM"}
-                                // Handler which gets executed when visible month changes in calendar. Default = undefined
-                                onMonthChange={(month) => {
-                                    console.log("month changed", month);
-                                }}
-                                // Hide month navigation arrows. Default = false
-                                hideArrows={true}
-                                // Replace default arrows with custom ones (direction can be 'left' or 'right')
-                                // Do not show days of other months in month page. Default = false
-                                hideExtraDays={true}
-                                // If hideArrows = false and hideExtraDays = false do not switch month when tapping on greyed out
-                                // day from another month that is visible in calendar page. Default = false
-                                disableMonthChange={true}
-                                // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday
-                                firstDay={1}
-                                // Hide day names. Default = false
-                                hideDayNames={true}
-                                // Show week numbers to the left. Default = false
-                                showWeekNumbers={true}
-                                // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-                                onPressArrowLeft={(subtractMonth) => subtractMonth()}
-                                // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-                                onPressArrowRight={(addMonth) => addMonth()}
-                                // Disable left arrow. Default = false
-                                disableArrowLeft={true}
-                                // Disable right arrow. Default = false
-                                disableArrowRight={true}
-                                // Disable all touch events for disabled days. can be override with disableTouchEvent in markedDates
-                                disableAllTouchEventsForDisabledDays={true}
-                                // Replace default month and year title with custom one. the function receive a date as parameter
-                                renderHeader={(date) => {
-                                    /*Return JSX*/
-                                }}
-                                // Enable the option to swipe between months. Default = false
-                                enableSwipeMonths={true}
-                            />
-                        )}
                     </View>
                 </View>
             </ImageBackground>
+            <DateSelection dateSelect={dateSelect} />
             <View style={styles.editContainer}>
-                <View>
-                    <Text>日期</Text>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>标题</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={title}
+                        onChangeText={setTitle}
+                        placeholder="请输入标题"
+                        placeholderTextColor="#999"
+                    />
                 </View>
-                <View>
-                    <Text>标题</Text>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>描述</Text>
+                    <TextInput
+                        style={[styles.input, styles.multilineInput]}
+                        value={description}
+                        onChangeText={setDescription}
+                        placeholder="请输入描述"
+                        placeholderTextColor="#999"
+                        multiline
+                        numberOfLines={3}
+                    />
                 </View>
-                <View>
-                    <Text>描述</Text>
-                </View>
-                <View>
-                    <Text>日期</Text>
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>记录</Text>
+                    <TextInput
+                        style={[styles.input, styles.multilineInput]}
+                        value={record}
+                        onChangeText={setRecord}
+                        placeholder="请输入记录"
+                        placeholderTextColor="#999"
+                        multiline
+                        numberOfLines={4}
+                    />
                 </View>
             </View>
         </View>
@@ -223,5 +184,28 @@ const styles = StyleSheet.create({
     editContainer: {
         flex: 1,
         backgroundColor: "#f6f6f7",
+        padding: 15,
+    },
+    inputContainer: {
+        marginBottom: 15,
+    },
+    label: {
+        fontSize: 16,
+        color: "#333",
+        marginBottom: 8,
+        fontWeight: "500",
+    },
+    input: {
+        backgroundColor: "#fff",
+        borderRadius: 8,
+        padding: 12,
+        fontSize: 16,
+        color: "#333",
+        borderWidth: 1,
+        borderColor: "#e0e0e0",
+    },
+    multilineInput: {
+        height: 100,
+        textAlignVertical: "top",
     },
 });

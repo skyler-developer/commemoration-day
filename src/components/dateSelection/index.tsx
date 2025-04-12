@@ -1,0 +1,139 @@
+import React, { useState } from "react";
+import {
+    View,
+    TouchableOpacity,
+    Text,
+    StyleSheet,
+    Modal,
+    TouchableWithoutFeedback,
+} from "react-native";
+import { Calendar, LocaleConfig } from "react-native-calendars";
+import { List } from "@ant-design/react-native";
+
+// const now = new Date();
+
+// 配置中文语言
+LocaleConfig.locales["zh"] = {
+    monthNames: [
+        "一月",
+        "二月",
+        "三月",
+        "四月",
+        "五月",
+        "六月",
+        "七月",
+        "八月",
+        "九月",
+        "十月",
+        "十一月",
+        "十二月",
+    ],
+    monthNamesShort: [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月",
+    ],
+    dayNames: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+    dayNamesShort: ["日", "一", "二", "三", "四", "五", "六"],
+    today: "今天",
+};
+LocaleConfig.defaultLocale = "zh";
+
+const DateSelection: React.FC<{ dateSelect: (date: Date) => void }> = ({ dateSelect }) => {
+    const [selectedDate, setSelectedDate] = useState<string>("");
+    const [showCalendar, setShowCalendar] = useState(false);
+
+    const onDayPress = (day: any) => {
+        setSelectedDate(day.dateString);
+        dateSelect(new Date(day.dateString));
+        setShowCalendar(false);
+    };
+
+    const closeModal = () => {
+        setShowCalendar(false);
+    };
+
+    return (
+        <View>
+            <TouchableOpacity onPress={() => setShowCalendar(true)} style={styles.dateButton}>
+                <Text style={styles.dateText}>{selectedDate ? selectedDate : "选择日期"}</Text>
+            </TouchableOpacity>
+
+            <Modal
+                visible={showCalendar}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={closeModal}>
+                <TouchableWithoutFeedback onPress={closeModal}>
+                    <View style={styles.modalOverlay}>
+                        <TouchableWithoutFeedback>
+                            <View style={styles.modalContent}>
+                                <Calendar
+                                    onDayPress={onDayPress}
+                                    markedDates={{
+                                        [selectedDate]: {
+                                            selected: true,
+                                            selectedColor: "#1890ff",
+                                        },
+                                    }}
+                                    minDate={"1949-10-01"}
+                                    maxDate={"2099-12-31"}
+                                    theme={{
+                                        selectedDayBackgroundColor: "#1890ff",
+                                        todayTextColor: "#1890ff",
+                                        arrowColor: "#1890ff",
+                                        monthTextColor: "#333",
+                                        textMonthFontWeight: "bold",
+                                        textDayFontSize: 16,
+                                        textMonthFontSize: 16,
+                                        textDayHeaderFontSize: 16,
+                                    }}
+                                    monthFormat={"yyyy年 MM月"}
+                                    firstDay={1}
+                                />
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    dateButton: {
+        padding: 12,
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderRadius: 4,
+        margin: 10,
+    },
+    dateText: {
+        fontSize: 16,
+        color: "#333",
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalContent: {
+        backgroundColor: "white",
+        borderRadius: 10,
+        padding: 20,
+        width: "90%",
+        maxWidth: 400,
+    },
+});
+
+export default DateSelection;

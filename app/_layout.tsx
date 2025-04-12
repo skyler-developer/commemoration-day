@@ -11,6 +11,7 @@ import { StatusBar, SafeAreaView, StyleSheet, ImageBackground, useColorScheme } 
 import DeviceInfo from "@/src/utils/deviceInfo";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useColorSchemeStore from "@/src/stores/colorSchemeStore";
+import { Provider } from "@ant-design/react-native";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -52,6 +53,7 @@ export default function RootLayout() {
         CangErTi: require("@/src/assets/fonts/cangErYuYangTi.ttf"),
         Conspired: require("@/src/assets/fonts/conspired-lovers.woff.ttf"),
         DongQing: require("@/src/assets/fonts/DongQingHeiTi.otf"),
+        antoutline: require("@ant-design/icons-react-native/fonts/antoutline.ttf"),
     });
 
     useEffect(() => {
@@ -64,19 +66,21 @@ export default function RootLayout() {
         return null;
     }
     return (
-        <SafeAreaProvider>
-            <SafeAreaView style={[styles.container, { paddingBottom: insets.bottom }]}>
-                <ImageBackground
-                    source={require("@/src/assets/images/background.jpg")}
-                    resizeMode="cover"
-                    // 顶部header部分加上状态栏高度，需要隔开header，
-                    style={[styles.background]}>
-                    <Animated.View style={[animatedStyle]}>
-                        <Slot />
-                    </Animated.View>
-                </ImageBackground>
-            </SafeAreaView>
-        </SafeAreaProvider>
+        <Provider>
+            <SafeAreaProvider>
+                <SafeAreaView style={[styles.container, { paddingBottom: insets.bottom }]}>
+                    <ImageBackground
+                        source={require("@/src/assets/images/background.jpg")}
+                        resizeMode="cover"
+                        // 顶部header部分加上状态栏高度，需要隔开header，
+                        style={[styles.background]}>
+                        <Animated.View style={[animatedStyle]}>
+                            <Slot />
+                        </Animated.View>
+                    </ImageBackground>
+                </SafeAreaView>
+            </SafeAreaProvider>
+        </Provider>
     );
 }
 

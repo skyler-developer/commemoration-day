@@ -22,4 +22,5 @@ npm start
 2. 使用Zustand管理状态。
 3. 使用React Native Elements库提供UI组件。
 4. 使用React Native Reanimated库实现动画效果。
-5. 使用react-native-calendars库提供日期选择器。
+<!-- 5. 使用react-native-calendars库提供日期选择器。 -->
+5. 使用 @ant-design/react-native 库提供日期选择器
