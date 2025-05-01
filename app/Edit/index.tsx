@@ -7,6 +7,7 @@ import {
     ScrollView,
     Image,
     TouchableOpacity,
+    Modal,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useState } from "react";
@@ -24,9 +25,13 @@ export default function Edit() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [record, setRecord] = useState("");
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const dateSelect = (date: Date) => {
         setDate(date);
+    };
+    const handleDelete = (state: boolean) => {
+        setShowDeleteModal(state);
     };
 
     return (
@@ -38,7 +43,9 @@ export default function Edit() {
                 <View style={styles.innerContainer}>
                     <View style={styles.subtitleContainer}>
                         <Text style={styles.subtitleText}>神奇的西藏</Text>
-                        <Text style={[styles.subtitleText, { color: "red" }]}>删除</Text>
+                        <TouchableOpacity onPress={() => handleDelete(true)}>
+                            <Text style={styles.subtitleText}>删除</Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.mainTitleContainer}>
                         <Text style={styles.mainTitleText}>第一次去旅游</Text>
@@ -130,13 +137,38 @@ export default function Edit() {
                             showCount={true}
                         />
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.buttonText}>保存</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText}>保存</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
+            <Modal
+                visible={showDeleteModal}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => handleDelete(false)}>
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>确认删除</Text>
+                        <Text style={styles.modalText}>
+                            确定要删除这个纪念日吗？此操作不可恢复。
+                        </Text>
+                        <View style={styles.modalButtons}>
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.cancelButton]}
+                                onPress={() => handleDelete(false)}>
+                                <Text style={styles.cancelButtonText}>取消</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[styles.modalButton, styles.confirmButton]}
+                                // onPress={confirmDelete}
+                            >
+                                <Text style={styles.confirmButtonText}>确认删除</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -261,21 +293,74 @@ const styles = StyleSheet.create({
         textAlignVertical: "top",
         textAlign: "left",
     },
-    buttonContainer: {
+    button: {
+        height: 60,
         padding: 10,
-        backgroundColor: "#fff",
-        borderRadius: 15,
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
-    },
-    button: {
         backgroundColor: "#000",
         borderRadius: 15,
+        justifyContent: "center",
+        alignItems: "center",
     },
     buttonText: {
-        color: "#fff",
-        fontSize: 18,
+        color: "#fcfcfc",
+        fontSize: 22,
         fontWeight: 700,
+    },
+
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalContent: {
+        backgroundColor: "#ffffff",
+        borderRadius: 12,
+        padding: 20,
+        width: "80%",
+        maxWidth: 300,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#2c2c2c",
+        marginBottom: 10,
+        textAlign: "center",
+    },
+    modalText: {
+        fontSize: 16,
+        color: "#666666",
+        marginBottom: 20,
+        textAlign: "center",
+    },
+    modalButtons: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    modalButton: {
+        flex: 1,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 6,
+        marginHorizontal: 5,
+    },
+    cancelButton: {
+        backgroundColor: "#f5f5f5",
+    },
+    confirmButton: {
+        backgroundColor: "#2c2c2c",
+    },
+    cancelButtonText: {
+        color: "#666666",
+        textAlign: "center",
+        fontSize: 16,
+    },
+    confirmButtonText: {
+        color: "#ffffff",
+        textAlign: "center",
+        fontSize: 16,
     },
 });

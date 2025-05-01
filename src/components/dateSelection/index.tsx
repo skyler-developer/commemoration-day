@@ -52,6 +52,8 @@ const DateSelection: React.FC<{ dateSelect: (date: Date) => void }> = ({ dateSel
         setDateSelectView(false);
     };
 
+    console.log("cardInfo.date.dateTime", cardInfo.date.dateTime);
+
     return (
         <View>
             <Modal
@@ -64,24 +66,37 @@ const DateSelection: React.FC<{ dateSelect: (date: Date) => void }> = ({ dateSel
                         <TouchableWithoutFeedback>
                             <View style={styles.modalContent}>
                                 <Calendar
+                                    current={cardInfo.date.dateTime.toISOString().split("T")[0]} // 设置默认显示的日期
                                     onDayPress={onDayPress}
                                     markedDates={{
                                         [cardInfo.date.dateTime.toISOString().split("T")[0]]: {
                                             selected: true,
-                                            selectedColor: "#1890ff",
+                                            selectedColor: "#2c2c2c",
                                         },
                                     }}
                                     minDate={"1949-10-01"}
                                     maxDate={"2099-12-31"}
                                     theme={{
-                                        selectedDayBackgroundColor: "#1890ff",
-                                        todayTextColor: "#1890ff",
-                                        arrowColor: "#1890ff",
-                                        monthTextColor: "#333",
+                                        selectedDayBackgroundColor: "#2c2c2c",
+                                        selectedDayTextColor: "#ffffff",
+                                        todayTextColor: "#cccccc",
+                                        arrowColor: "#2c2c2c",
+                                        monthTextColor: "#2c2c2c",
                                         textMonthFontWeight: "bold",
                                         textDayFontSize: 16,
-                                        textMonthFontSize: 16,
+                                        textMonthFontSize: 18,
                                         textDayHeaderFontSize: 16,
+                                        textSectionTitleColor: "#2c2c2c",
+                                        dayTextColor: "#2c2c2c",
+                                        textDisabledColor: "#e0e0e0",
+                                        textDayFontWeight: "500",
+                                        textDayHeaderFontWeight: "600",
+                                        textMonthFontFamily: "DongQing",
+                                        textDayFontFamily: "DongQing",
+                                        textDayHeaderFontFamily: "DongQing",
+                                        backgroundColor: "#ffffff",
+                                        calendarBackground: "#ffffff",
+                                        dotColor: "#2c2c2c",
                                     }}
                                     monthFormat={"yyyy年 MM月"}
                                     firstDay={1}
