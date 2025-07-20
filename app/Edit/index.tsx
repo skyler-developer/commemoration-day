@@ -15,6 +15,7 @@ import { format } from "date-fns";
 import DateSelection from "@/src/components/dateSelection";
 import { Input } from "@ant-design/react-native";
 import useCardInfoStore from "@/src/stores/cardInfoStore";
+import { pickImage } from "@/src/utils/pickImage";
 
 const { width, height } = Dimensions.get("window");
 console.log("width", width);
@@ -26,6 +27,7 @@ export default function Edit() {
     const [description, setDescription] = useState("");
     const [record, setRecord] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [backgroundImage, setBackgroundImage] = useState(require("@/src/assets/images/with.jpg"));
 
     const dateSelect = (date: Date) => {
         setDate(date);
@@ -34,43 +36,52 @@ export default function Edit() {
         setShowDeleteModal(state);
     };
 
+    const pickImageFn = async () => {
+        const result = await pickImage();
+        if (result && !result.canceled) {
+            setBackgroundImage({ uri: result.assets[0].uri });
+        }
+    };
+
     return (
         <View style={styles.container}>
-            <ImageBackground
-                resizeMode="cover"
-                source={require("@/src/assets/images/with.jpg")}
-                style={[styles.imageContainer, { paddingTop: insets.top + 5 }]}>
-                <View style={styles.innerContainer}>
-                    <View style={styles.subtitleContainer}>
-                        <Text style={styles.subtitleText}>神奇的西藏</Text>
-                        <TouchableOpacity onPress={() => handleDelete(true)}>
-                            <Text style={styles.subtitleText}>删除</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.mainTitleContainer}>
-                        <Text style={styles.mainTitleText}>第一次去旅游</Text>
-                    </View>
-                    <View style={styles.timeContainer}>
-                        <View style={styles.timeItem}>
-                            <Text style={styles.timeText}>01</Text>
-                            <Text style={styles.timeUnderText}>年</Text>
+            <TouchableOpacity onPress={pickImageFn}>
+                <ImageBackground
+                    resizeMode="cover"
+                    source={backgroundImage}
+                    style={[styles.imageContainer, { paddingTop: insets.top + 5 }]}>
+                    <View style={styles.innerContainer}>
+                        <View style={styles.subtitleContainer}>
+                            <Text style={styles.subtitleText}>神奇的西藏</Text>
+                            <TouchableOpacity onPress={() => handleDelete(true)}>
+                                <Text style={styles.subtitleText}>删除</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.timeItem}>
-                            <Text style={styles.timeText}>04</Text>
-                            <Text style={styles.timeUnderText}>月</Text>
+                        <View style={styles.mainTitleContainer}>
+                            <Text style={styles.mainTitleText}>第一次去旅游</Text>
                         </View>
-                        <View style={styles.timeItem}>
-                            <Text style={styles.timeText}>06</Text>
-                            <Text style={styles.timeUnderText}>日</Text>
+                        <View style={styles.timeContainer}>
+                            <View style={styles.timeItem}>
+                                <Text style={styles.timeText}>01</Text>
+                                <Text style={styles.timeUnderText}>年</Text>
+                            </View>
+                            <View style={styles.timeItem}>
+                                <Text style={styles.timeText}>04</Text>
+                                <Text style={styles.timeUnderText}>月</Text>
+                            </View>
+                            <View style={styles.timeItem}>
+                                <Text style={styles.timeText}>06</Text>
+                                <Text style={styles.timeUnderText}>日</Text>
+                            </View>
+                        </View>
+                        <View style={styles.startDateContainer}>
+                            <Text style={styles.startDateText} onPress={() => void 0}>
+                                {format(cardInfo.date.dateTime, "yyyy-MM-dd")}
+                            </Text>
                         </View>
                     </View>
-                    <View style={styles.startDateContainer}>
-                        <Text style={styles.startDateText} onPress={() => void 0}>
-                            {format(cardInfo.date.dateTime, "yyyy-MM-dd")}
-                        </Text>
-                    </View>
-                </View>
-            </ImageBackground>
+                </ImageBackground>
+            </TouchableOpacity>
             <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="on-drag">
                 <View style={styles.editContainer}>
                     <View style={styles.inputContainer}>

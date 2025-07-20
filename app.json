@@ -33,7 +33,8 @@
                     "resizeMode": "contain",
                     "backgroundColor": "#ffffff"
                 }
-            ]
+            ],
+            ["expo-image-picker", { "photosPermission": "允许应用访问您的相册以选择图片。" }]
         ],
         "experiments": {
             "typedRoutes": true
