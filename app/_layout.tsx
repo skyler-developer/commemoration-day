@@ -12,6 +12,8 @@ import DeviceInfo from "@/src/utils/deviceInfo";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useColorSchemeStore from "@/src/stores/colorSchemeStore";
 import { Provider } from "@ant-design/react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -66,15 +68,17 @@ export default function RootLayout() {
         return null;
     }
     return (
-        <Provider>
-            <SafeAreaProvider>
-                <SafeAreaView style={[styles.container, { paddingBottom: insets.bottom }]}>
-                    <Animated.View style={[animatedStyle]}>
-                        <Slot />
-                    </Animated.View>
-                </SafeAreaView>
-            </SafeAreaProvider>
-        </Provider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <Provider>
+                <SafeAreaProvider>
+                    <SafeAreaView style={[styles.container, { paddingBottom: insets.bottom }]}>
+                        <Animated.View style={[animatedStyle]}>
+                            <Slot />
+                        </Animated.View>
+                    </SafeAreaView>
+                </SafeAreaProvider>
+            </Provider>
+        </GestureHandlerRootView>
     );
 }
 
