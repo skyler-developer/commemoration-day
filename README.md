@@ -29,3 +29,9 @@ npm start
 
 # 坑点记录
 1. rn中元素的position属性值默认为relative
+
+
+
+# 分支描述
+1. main 开发主分支
+2. personal-main 个人使用分支
