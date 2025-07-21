@@ -13,6 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Pressable } from "react-native";
 import { Audio } from "expo-av";
+import useMeritsCountStore from "@/src/stores/meritsCountStore";
 
 const { width, height } = Dimensions.get("window");
 
@@ -24,6 +25,7 @@ const Card: React.FC = () => {
     const [bubbles, setBubbles] = useState<{ id: number; x: number }[]>([]);
     const [sound, setSound] = useState<Audio.Sound | null>(null);
     const [soundLoaded, setSoundLoaded] = useState(false);
+    const { setMeritsCountPlus } = useMeritsCountStore();
 
     // 创建缩放的共享值
     const scale = useSharedValue(1);
@@ -121,6 +123,7 @@ const Card: React.FC = () => {
         console.log("卡片被点击了！");
         generateBubble();
         playSound(); // 播放音频
+        setMeritsCountPlus();
         // 这里可以添加导航或其他逻辑
     };
 
