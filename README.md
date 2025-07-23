@@ -29,6 +29,7 @@ npm start
 
 # 坑点记录
 1. rn中元素的position属性值默认为relative
+2. 本地电脑启的后端服务，rn不能请求localhost，需要请求局域网ip地址（但在 React Native（尤其是模拟器或真机）中，localhost 指的是设备本身）
 
 
 
