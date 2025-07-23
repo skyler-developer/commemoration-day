@@ -18,13 +18,13 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 
 class ApiClient {
     private instance: AxiosInstance;
-    private baseURL = "https://api.yourapp.com"; // 替换为你的 API 基础地址
+    private baseURL = "http://192.168.1.6:3000"; // 替换为你的 API 基础地址
 
     constructor() {
         // 创建 axios 实例
         this.instance = axios.create({
             baseURL: this.baseURL,
-            timeout: 10000, // 10秒超时
+            timeout: 5000, // 5秒超时
             headers: {
                 "Content-Type": "application/json",
             },
@@ -47,7 +47,8 @@ class ApiClient {
                     params: config.params,
                     data: config.data,
                 });
-
+                console.log("config", config);
+                console.log("config.url", config.url);
                 // 添加 token（如果需要且不跳过认证）
                 // 注意：需要先安装 @react-native-async-storage/async-storage
                 /*

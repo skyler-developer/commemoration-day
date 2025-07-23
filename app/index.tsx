@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollView, Button, ImageBackground, StyleSheet } from "react-native";
 import Header from "@/src/components/header";
 import Card from "@/src/components/card";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import getCardList from "@/src/api/cardManage/getCardList";
 export default function home() {
     const insets = useSafeAreaInsets();
     console.log(insets.top);
+    useEffect(() => {
+        getCardList();
+    }, []);
     return (
         <>
             <ImageBackground
